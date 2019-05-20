@@ -1,0 +1,42 @@
+﻿@page
+@model AksDevOpsSample.Web.Pages.DebugModel
+@{
+    ViewData["Title"] = "Debug";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+
+<h1>Debug</h1>
+
+<div class="row">
+    <div class="col-md-6">
+        <form method="post">
+            <div class="form-group">
+                <input type="text" class="form-control" name="DnsQuery" placeholder="Dns to lookup" value="@Model.DnsQuery">
+            </div>
+            <div class="form-group">
+                <label for="DnsQueryResult">Dns Query Result</label>
+                <textarea class="form-control" readonly="readonly" name="DnsQueryResult" rows="10">@Model.DnsQueryResult</textarea>
+            </div>
+
+            <button type="submit" class="btn btn-primary" asp-page-handler="DnsQuery">Dns Lookup</button>
+        </form>
+
+    </div>
+    <div class="col-md-6">
+        <form method="post">
+            <div class="form-group">
+                <input type="text" class="form-control" name="UrlQuery" placeholder="URL to load contents" value="@Model.UrlQuery">
+            </div>
+            <div class="form-group">
+                <label for="UrlQueryResult">Contents</label>
+                <textarea class="form-control" readonly="readonly" name="UrlQueryResult" rows="10">@Model.UrlQueryResult</textarea>
+            </div>
+
+            <button type="submit" class="btn btn-primary" asp-page-handler="UrlQuery">GET</button>
+        </form>
+    </div>
+</div>
+
+
+
+

@@ -1,0 +1,22 @@
+version: '3.4'
+
+services:
+
+  aksdevopssample.web:
+    image: ${DOCKER_REGISTRY-}/aksdevopssample-users-api:${TAG:-latest}
+    build:
+      context: .
+      dockerfile: src/Web/AksDevOpsSample.Web/Dockerfile
+
+  aksdevopssample.users.api:
+    image: ${DOCKER_REGISTRY-}/aksdevopssample-users-api:${TAG:-latest}
+    build:
+      context: .
+      dockerfile: src/Users/AksDevOpsSample.Users.Api/Dockerfile
+
+  aksdevopssample.products.api:
+    image: ${DOCKER_REGISTRY-}/aksdevopssample-products-api:${TAG:-latest}
+    build:
+      context: .
+      dockerfile: src/Products/AksDevOpsSample.Products.Api/Dockerfile
+

@@ -1,0 +1,23 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>    
+</div>
+<div class="row">
+    <div class="col-md-6">
+        <h4>Users (@Model.UsersApiUrl)</h4>
+        <textarea class="form-control" rows="5" disabled>
+        @Model.UsersContent
+        </textarea>
+    </div>
+    <div class="col-md-6">
+        <h4>Products (@Model.ProductsApiUrl)</h4>
+        <textarea class="form-control" rows="5" disabled>
+        @Model.ProductsContent
+        </textarea>
+    </div>
+</div>

@@ -1,0 +1,25 @@
+version: '3.4'
+
+services:
+
+  aksdevopssample.web:
+    environment:
+      - PRODUCTSAPIURL=aksdevopssample.products.api
+      - USERSAPIURL=aksdevopssample.users.api
+    depends_on:
+      - aksdevopssample.users.api
+      - aksdevopssample.products.api
+    ports:
+      - "80"
+
+  aksdevopssample.users.api:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    ports:
+      - "80"
+  aksdevopssample.products.api:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    ports:
+      - "80"
+

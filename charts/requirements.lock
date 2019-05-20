@@ -1,0 +1,6 @@
+dependencies:
+- name: users-api
+  repository: file://../src/Users/AksDevOpsSample.Users.Api/charts/users-api
+  version: 0.1.1
+digest: sha256:25d49687743d099e7cbee11ba96f4fc4b7b736a4e99ca9fcbd0baf4fe52c31cf
+generated: 2019-05-19T16:59:29.2582616+02:00

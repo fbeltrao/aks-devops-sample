@@ -1,0 +1,16 @@
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+products-api:
+  ingress:
+    annotations:
+      kubernetes.io/ingress.class: traefik-azds  # Dev Spaces-specific
+    hosts:
+      - dev.products-api.fbr-aks-25950a1d.hcp.westeurope.azmk8s.io  # Assumes deployment to the 'dev' space
+
+users-api:
+  ingress:
+    annotations:
+      kubernetes.io/ingress.class: traefik-azds  # Dev Spaces-specific
+    hosts:
+      - dev.users-api.fbr-aks-25950a1d.hcp.westeurope.azmk8s.io  # Assumes deployment to the 'dev' space      

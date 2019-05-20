@@ -1,0 +1,8 @@
+dependencies:
+  - name: products-api
+    version: 0.1.0
+    repository: "file://../src/Products/AksDevOpsSample.Products.Api/charts/products-api"
+dependencies:
+  - name: users-api
+    version: 0.1.1
+    repository: "file://../src/Users/AksDevOpsSample.Users.Api/charts/users-api"   

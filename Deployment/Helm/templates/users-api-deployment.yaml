@@ -1,0 +1,72 @@
+apiVersion: apps/v1beta2
+kind: Deployment
+metadata:
+  name: {{ .Values.usersapi.name | lower }}
+  labels:
+    app: {{ .Values.usersapi.name }}
+    chart: {{ template "AksDevOpsSample.chart" . }}
+    draft: {{ default "draft-app" .Values.draft }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+spec:
+  replicas: {{ .Values.usersapi.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ .Values.usersapi.name }}
+      release: {{ .Release.Name }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.usersapi.name }}
+        draft: {{ default "draft-app" .Values.draft }}
+        release: {{ .Release.Name }}
+      annotations:
+        buildID: {{ .Values.buildID }}
+    spec:
+      containers:
+        - name: {{ .Chart.Name }}
+          image: "{{ .Values.usersapi.image.repository }}:{{ .Values.usersapi.image.tag }}"
+          imagePullPolicy: {{ .Values.usersapi.image.pullPolicy }}
+          ports:
+            - name: http
+              containerPort: 80
+              protocol: TCP
+          {{- if .Values.usersapi.probes.enabled }}
+          livenessProbe:
+            httpGet:
+              path: {{ .Values.usersapi.probes.livenessProbe }}
+              port: http
+          readinessProbe:
+            httpGet:
+              path: {{ .Values.usersapi.probes.readinessProbe }}
+              port: http
+          {{- end }}
+          env:
+            {{- $root := . }}
+            {{- range $ref, $values := .Values.secrets }}
+            {{- range $key, $value := $values }}
+            - name: {{ $ref }}_{{ $key }}
+              valueFrom:
+                secretKeyRef:
+                  name: {{ template "AksDevOpsSample.fullname" $root }}-{{ $ref | lower }}
+                  key: {{ $key }}
+            {{- end }}
+            {{- end }}
+          resources:
+{{ toYaml .Values.resources | indent 12 }}
+    {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+{{ toYaml . | indent 8 }}
+    {{- end }}
+    {{- with .Values.nodeSelector }}
+      nodeSelector:
+{{ toYaml . | indent 8 }}
+    {{- end }}
+    {{- with .Values.affinity }}
+      affinity:
+{{ toYaml . | indent 8 }}
+    {{- end }}
+    {{- with .Values.tolerations }}
+      tolerations:
+{{ toYaml . | indent 8 }}
+    {{- end }}
